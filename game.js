@@ -7,9 +7,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     checkWaitTime();
     
-    if (!localStorage.getItem('endTime')) {
+    
+if (!localStorage.getItem('endTime')) {
+    populateGameBoard();
+} else {
+    let endTime = parseInt(localStorage.getItem('endTime'));
+    let currentTime = new Date().getTime();
+    if (currentTime - endTime < 60000) {
+        document.getElementById('game-board').innerHTML = '<p class="text-black text-xl col-span-4">You naughty, naughty! You must wait 60 seconds like a good boy!</p>';
+    } else {
         populateGameBoard();
     }
+}
+
 
     function flipCard(event) {
         let card = event.target;
