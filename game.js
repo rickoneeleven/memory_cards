@@ -1,5 +1,8 @@
 
 function handleGameWin() {
+    // Store the time of winning 3/3 games in localStorage
+    localStorage.setItem('winTime', new Date().getTime().toString());
+
     //alert('Congratulations! You\'ve won 3 times!');
     triggerWinEffect();
     // Add any other win logic here if necessary
@@ -21,6 +24,15 @@ function triggerWinEffect() {
     winMessage.style.zIndex = 1000;
     winMessage.style.color = 'gold';
     document.body.appendChild(winMessage);
+}
+
+function isSameDay(timestamp1, timestamp2) {
+    let date1 = new Date(timestamp1);
+    let date2 = new Date(timestamp2);
+    
+    return date1.getUTCFullYear() === date2.getUTCFullYear() &&
+           date1.getUTCMonth() === date2.getUTCMonth() &&
+           date1.getUTCDate() === date2.getUTCDate();
 }
 document.addEventListener("DOMContentLoaded", function() {
     // Debug button logic
@@ -44,9 +56,16 @@ document.getElementById('debug-button').addEventListener('click', function() {
     checkWaitTime();
     
     
-if (!localStorage.getItem('endTime')) {
+
+let winTime = localStorage.getItem('winTime');
+let currentTime = new Date().getTime();
+
+if (winTime && isSameDay(currentTime, parseInt(winTime))) {
+    document.getElementById('game-board').innerHTML = '<p class="text-black text-xl col-span-4">You have won 3/3 games today. Wait until tomorrow to play again!</p>';
+} else if (!localStorage.getItem('endTime')) {
     populateGameBoard();
 } else {
+
     let endTime = parseInt(localStorage.getItem('endTime'));
     let currentTime = new Date().getTime();
     if (currentTime - endTime < 60000) {
