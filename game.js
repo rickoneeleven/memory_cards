@@ -1,7 +1,26 @@
 
 function handleGameWin() {
-    alert('Congratulations! You\'ve won 3 times!');
+    //alert('Congratulations! You\'ve won 3 times!');
+    triggerWinEffect();
     // Add any other win logic here if necessary
+}
+
+function triggerWinEffect() {
+    // Display the message
+    let winMessage = document.createElement('div');
+    winMessage.innerHTML = "YOU'RE THE BEST!!!";
+    winMessage.style.position = 'fixed';
+    winMessage.style.top = '50%';
+    winMessage.style.left = '50%';
+    winMessage.style.transform = 'translate(-50%, -50%)';
+    winMessage.style.fontSize = '5rem'; // Increase font size
+    winMessage.style.fontWeight = 'bold'; // Set font weight to bold
+    winMessage.style.color = 'gold';
+    winMessage.style.textShadow = '2px 2px 4px #000000, -2px -2px 4px #000000, 2px -2px 4px #000000, -2px 2px 4px #000000'; // Text outline
+    winMessage.style.animation = 'flashing 1s infinite'; // Flashing effect
+    winMessage.style.zIndex = 1000;
+    winMessage.style.color = 'gold';
+    document.body.appendChild(winMessage);
 }
 document.addEventListener("DOMContentLoaded", function() {
     // Debug button logic
@@ -141,4 +160,5 @@ if (!localStorage.getItem('endTime')) {
             });
         });
     }
+    
 });
