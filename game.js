@@ -1,4 +1,21 @@
+
+function handleGameWin() {
+    alert('Congratulations! You\'ve won 3 times!');
+    // Add any other win logic here if necessary
+}
 document.addEventListener("DOMContentLoaded", function() {
+    // Debug button logic
+    
+document.getElementById('debug-button').addEventListener('click', function() {
+    gamesWon++;
+    document.getElementById('games-won').innerText = gamesWon + "/3";
+    if (gamesWon === 3) {
+        handleGameWin();
+    }
+});
+
+
+    if(typeof explodeParticles !== "undefined") { explodeParticles(); }
     let lives = 6;
     let gamesWon = 0;
     let firstCard = null;
@@ -35,10 +52,16 @@ if (!localStorage.getItem('endTime')) {
                 secondCard = null;
                 if (cardsFlipped === 16) {
                     gamesWon++;
-                    document.getElementById('games-won').innerText = gamesWon;
-                    resetGame();
-                    populateGameBoard();
-                }
+                    document.getElementById('games-won').innerText = gamesWon + "/3";
+                    if (gamesWon === 3) {
+                        
+    handleGameWin();
+
+                    } else {
+                        resetGame();
+                        populateGameBoard();
+                    }
+                }                
             } else {
                 lives--;
                 document.getElementById('lives').innerText = lives;
